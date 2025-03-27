@@ -38,11 +38,15 @@ RUN set -ex && \
 		--with-all=no \
 		--with-usb=yes \
 		--datadir=/usr/share/nut \
+		--with-nss \
+		 --with-openssl \
+		--with-neon \
+		--with-snmp \
 		--with-drvpath=/usr/share/nut \
 		--with-statepath=/var/run/nut \
 		--with-user=nut \
 		--with-group=nut && \
-	# install
+# install
 	make install && \
 	# create nut user
 	adduser -D -h /var/run/nut nut && \
