@@ -10,11 +10,18 @@ then
    ADMIN_PASSWORD=$(dd if=/dev/urandom bs=18 count=1 2>/dev/null | base64)
 fi
 
+if [ -z "$POLL_INTERVAL" ]
+then
+   POLL_INTERVAL=30
+fi
+
+
 cat >/etc/nut/ups.conf <<EOF
 [$UPS_NAME]
 	desc = "$UPS_DESC"
 	driver = $UPS_DRIVER
 	port = $UPS_PORT
+	pollinterval = $POLL_INTERVAL
 EOF
 
 cat >/etc/nut/upsd.conf <<EOF
