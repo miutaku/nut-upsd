@@ -2,19 +2,19 @@ FROM alpine:3.21.3
 
 LABEL maintainer="miutaku@miutaku.dev"
 
-ENV NUT_VERSION 2.8.2
-ENV NUT_MAJOR_VERSION 2.8
+ENV NUT_VERSION=2.8.2
+ENV NUT_MAJOR_VERSION=2.8
 
 
-ENV UPS_NAME "ups"
-ENV UPS_DESC "UPS"
-ENV UPS_DRIVER "usbhid-ups"
-ENV UPS_PORT "auto"
+ENV UPS_NAME="ups"
+ENV UPS_DESC="UPS"
+ENV UPS_DRIVER="usbhid-ups"
+ENV UPS_PORT="auto"
 
-ENV API_PASSWORD ""
-ENV ADMIN_PASSWORD ""
+ENV API_PASSWORD=""
+ENV ADMIN_PASSWORD=""
 
-ENV SHUTDOWN_CMD "echo 'System shutdown not configured!'"
+ENV SHUTDOWN_CMD="echo 'System shutdown not configured!'"
 
 RUN set -ex; \
 	# run dependencies
