@@ -1,0 +1,12 @@
+---
+services:
+  nut-upsd:
+    image: ghcr.io/miutaku/nut-upsd:latest
+    container_name: nut-upsd
+    ports:
+      - 3493:3493
+    devices:
+      - /dev/bus/usb/xxx/yyy:/dev/bus/usb/xxx/yyy
+#    environment:
+#      - SHUTDOWN_CMD="my-shutdown-command-from-container"
+    restart: unless-stopped

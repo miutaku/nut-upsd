@@ -9,6 +9,11 @@ This image provides a complete UPS monitoring service (USB driver only).
 Start the container:
 
 ```console
+# vim docker-compose.yml # modify your environment
+# docker compose up -d
+```
+
+```console
 # docker run \
 	--name nut-upsd \
 	--detach \
