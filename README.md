@@ -15,7 +15,7 @@ Start the container:
 	--publish 3493:3493 \
 	--device /dev/bus/usb/xxx/yyy \
 	--env SHUTDOWN_CMD="my-shutdown-command-from-container" \
-	upshift/nut-upsd
+	ghcr.io/miutaku/nut-upsd
 ```
 
 ## Auto configuration via environment variables
