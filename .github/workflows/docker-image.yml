@@ -7,36 +7,34 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - id: docker_meta
-        name: Docker Metadata action
-        uses: docker/metadata-action@v3.3.0
-        with:
-          images: upshift/nut-upsd
-          flavor: |
-            latest=${{ github.ref == 'refs/heads/master' }}
-          tags: |
-            type=ref,event=branch
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+      - name: Check out code
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
+      - name: Log in to ghcr.io
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
+      - name: create image meta
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          context: .
-          platforms: linux/amd64,linux/arm64
+          images: ghcr.io/${{ github.actor }}/api-rec-twitcasting
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=,suffix=,format=short
+
+      - name: push container image
+        uses: docker/build-push-action@v5
+        with:
+          file: .
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
