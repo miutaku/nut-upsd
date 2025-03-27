@@ -14,23 +14,20 @@ ENV UPS_PORT="auto"
 
 ENV SHUTDOWN_CMD="echo 'System shutdown not configured!'"
 
-RUN set -ex; \
+RUN set -ex && \
 	# run dependencies
 	apk add --no-cache \
 		openssh-client \
-		libusb-compat \
-	; \
+		libusb-compat && \
 	# build dependencies
 	apk add --no-cache --virtual .build-deps \
 		libusb-compat-dev \
-		build-base \
-	; \
+		build-base && \
 	# download and extract
-	cd /tmp; \
-	wget http://www.networkupstools.org/source/${NUT_MAJOR_VERSION}/nut-${NUT_VERSION}.tar.gz; \
-	tar xfz nut-${NUT_VERSION}.tar.gz; \
-	cd nut-${NUT_VERSION} \
-	; \
+	cd /tmp && \
+	wget http://www.networkupstools.org/source/${NUT_MAJOR_VERSION}/nut-${NUT_VERSION}.tar.gz && \
+	tar xfz nut-${NUT_VERSION}.tar.gz && \
+	cd nut-${NUT_VERSION} && \
 	# build
 	./configure \
 		--prefix=/usr \
@@ -44,19 +41,16 @@ RUN set -ex; \
 		--with-drvpath=/usr/share/nut \
 		--with-statepath=/var/run/nut \
 		--with-user=nut \
-		--with-group=nut \
-	; \
+		--with-group=nut && \
 	# install
-	make install \
-	; \
+	make install && \
 	# create nut user
-	adduser -D -h /var/run/nut nut; \
-	chgrp -R nut /etc/nut; \
-	chmod -R o-rwx /etc/nut; \
-	install -d -m 750 -o nut -g nut /var/run/nut \
-	; \
+	adduser -D -h /var/run/nut nut && \
+	chgrp -R nut /etc/nut && \
+	chmod -R o-rwx /etc/nut && \
+	install -d -m 750 -o nut -g nut /var/run/nut && \
 	# cleanup
-	rm -rf /tmp/nut-${NUT_VERSION}.tar.gz /tmp/nut-${NUT_VERSION}; \
+	rm -rf /tmp/nut-${NUT_VERSION}.tar.gz /tmp/nut-${NUT_VERSION} && \
 	apk del .build-deps
 
 COPY src/docker-entrypoint /usr/local/bin/
