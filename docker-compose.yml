@@ -9,4 +9,6 @@ services:
       - /dev/bus/usb/xxx/yyy:/dev/bus/usb/xxx/yyy
 #    environment:
 #      - SHUTDOWN_CMD="my-shutdown-command-from-container"
+#      - API_PASSWORD=""
+#      - ADMIN_PASSWORD=""
     restart: unless-stopped
