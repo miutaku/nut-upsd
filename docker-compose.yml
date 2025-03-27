@@ -11,4 +11,5 @@ services:
 #      - SHUTDOWN_CMD="my-shutdown-command-from-container"
 #      - API_PASSWORD=""
 #      - ADMIN_PASSWORD=""
+#      - POLL_INTERVAL=30 # default: 30
     restart: unless-stopped
