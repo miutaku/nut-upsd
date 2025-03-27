@@ -18,10 +18,15 @@ RUN set -ex && \
 	# run dependencies
 	apk add --no-cache \
 		openssh-client \
-		libusb-compat && \
+		libusb-compat \
+		nss && \
 	# build dependencies
-	apk add --no-cache --virtual .build-deps \
+	apk add --update --no-cache --virtual .build-deps \
 		libusb-compat-dev \
+        net-snmp-dev \
+        openssl-dev \
+        nss-dev \
+        neon-dev \
 		build-base && \
 	# download and extract
 	cd /tmp && \
@@ -39,7 +44,7 @@ RUN set -ex && \
 		--with-usb=yes \
 		--datadir=/usr/share/nut \
 		--with-nss \
-		 --with-openssl \
+		--with-openssl \
 		--with-neon \
 		--with-snmp \
 		--with-drvpath=/usr/share/nut \
