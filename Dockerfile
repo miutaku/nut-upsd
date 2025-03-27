@@ -11,8 +11,6 @@ ENV UPS_DESC="UPS"
 ENV UPS_DRIVER="usbhid-ups"
 ENV UPS_PORT="auto"
 
-ENV API_PASSWORD=""
-ENV ADMIN_PASSWORD=""
 
 ENV SHUTDOWN_CMD="echo 'System shutdown not configured!'"
 
