@@ -15,6 +15,7 @@ then
    POLL_INTERVAL=30
 fi
 
+UPS_NAME=$(echo "$UPS_NAME" | tr ' ' '_')
 
 cat >/etc/nut/ups.conf <<EOF
 [$UPS_NAME]
